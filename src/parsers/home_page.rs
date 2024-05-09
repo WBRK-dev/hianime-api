@@ -1,18 +1,20 @@
-use std::vec;
-
 use crate::types::anime::AnimeEpisodes;
 use crate::types::errors::DefaultError;
 
 use crate::utils::env;
 use crate::config::default_env;
 use crate::types::parsers::home_page::*;
+use crate::utils::anime::scrape_basic_anime;
 
 use scraper::{Html, Selector};
 
 pub async fn get() -> Result<warp::reply::WithStatus<warp::reply::Json>, DefaultError> {
 
     let mut response: HomePage = HomePage { 
-        spotlight: vec![],
+        spotlight: Vec::new(),
+        trending: Vec::new(),
+        latest_episodes: Vec::new(),
+        top_upcoming: Vec::new(),
     };
     let home_page_url = env::get("DOMAIN_NAME", Some(default_env::SRC_BASE_URL))?;
 
@@ -84,6 +86,41 @@ pub async fn get() -> Result<warp::reply::WithStatus<warp::reply::Json>, Default
 
         response.spotlight.push(spotlight_item);
     }
+
+    for trending_elem in home_page.select(&Selector::parse("#trending-home .swiper-wrapper .swiper-slide").unwrap()) {
+        let mut trending_item = TrendingItem { 
+            rank: 0,
+            id: String::new(),
+            title: String::new(),
+            jtitle: String::new(),
+            poster: String::new(),
+        };
+
+        // Get trending anime rank
+        trending_item.rank = trending_elem.select(&Selector::parse(".item .number span").unwrap()).next().expect("Failed to find rank")
+            .text().collect::<String>().parse().unwrap();
+
+        // Get trending anime id
+        trending_item.id = trending_elem.select(&Selector::parse(".item .film-poster").unwrap()).next().expect("Failed to find id")
+            .attr("href").expect("Failed to find id").split("").skip(2).collect();
+
+        // Get trending anime title
+        trending_item.title = trending_elem.select(&Selector::parse(".item .number .film-title.dynamic-name").unwrap()).next()
+            .expect("Title not found").text().collect::<String>().trim().to_string();
+
+        // Get trending anime japanese title
+        trending_item.jtitle = trending_elem.select(&Selector::parse(".item .number .film-title.dynamic-name").unwrap()).next()
+            .expect("Japanese title not found").attr("data-jname").expect("Japanese title not found").trim().to_string();
+
+        // Get trending anime poster url
+        trending_item.poster = trending_elem.select(&Selector::parse(".item .film-poster .film-poster-img").unwrap()).next()
+            .expect("Poster url not found").attr("data-src").expect("Poster url not found").trim().to_string();
+
+        response.trending.push(trending_item);
+    }
+
+    response.latest_episodes = scrape_basic_anime(home_page.select(&Selector::parse("#main-content .block_area_home:nth-of-type(1) .tab-content .film_list-wrap .flw-item").unwrap()));
+    response.top_upcoming = scrape_basic_anime(home_page.select(&Selector::parse("#main-content .block_area_home:nth-of-type(3) .tab-content .film_list-wrap .flw-item").unwrap()));
 
     Ok(warp::reply::with_status(warp::reply::json(&response), warp::http::StatusCode::OK))
         

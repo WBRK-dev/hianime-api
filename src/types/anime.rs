@@ -1,8 +1,8 @@
 #[derive(serde::Serialize)]
 pub struct Anime {
     pub id: String,
-    pub name: String,
-    pub jname: String,
+    pub title: String,
+    pub jtitle: String,
     pub poster: String,
     pub details: AnimeDetails,
     pub episodes: AnimeEpisodes
