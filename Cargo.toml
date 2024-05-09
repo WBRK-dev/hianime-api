@@ -1,0 +1,14 @@
+[package]
+name = "api-test"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+scraper = "0.19.0"
+tokio = { version = "1", features = ["full"] }
+warp = "0.3"
+reqwest = "0.12"
+dotenv = "0.15.0"
+serde = { version = "1.0.201", features = ["derive"] }
