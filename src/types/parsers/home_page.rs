@@ -12,8 +12,8 @@ pub struct HomePage {
 pub struct SpotlightItem {
     pub rank: u8,
     pub id: String,
-    pub name: String,
-    pub jname: String,
+    pub title: String,
+    pub jtitle: String,
     pub description: String,
     pub poster: String,
     pub details: Vec<String>,
@@ -24,7 +24,7 @@ pub struct SpotlightItem {
 pub struct TrendingItem {
     pub rank: u8,
     pub id: String,
-    pub name: String,
+    pub title: String,
     // pub jname: String,
     pub poster: String,
 }
@@ -32,7 +32,7 @@ pub struct TrendingItem {
 #[derive(serde::Serialize)]
 pub struct LatestEpisodeItem {
     pub id: String,
-    pub name: String,
+    pub title: String,
     // pub jname: String,
     pub poster: String,
     pub details: crate::types::anime::AnimeDetails,
@@ -42,7 +42,7 @@ pub struct LatestEpisodeItem {
 #[derive(serde::Serialize)]
 pub struct TopUpcomingItem {
     pub id: String,
-    pub name: String,
+    pub title: String,
     // pub jname: String,
     pub poster: String,
     pub details: crate::types::anime::AnimeDetails,
@@ -60,7 +60,7 @@ pub struct Top10AnimeWrapper {
 pub struct Top10AnimeItem {
     pub rank: u8,
     pub id: String,
-    pub name: String,
+    pub title: String,
     // pub jname: String,
     pub poster: String,
     pub episodes: crate::types::anime::AnimeEpisodes
@@ -69,7 +69,7 @@ pub struct Top10AnimeItem {
 #[derive(serde::Serialize)]
 pub struct TopAiringItem {
     pub id: String,
-    pub name: String,
-    pub jname: String,
+    pub title: String,
+    pub jtitle: String,
     pub poster: String,
 }
