@@ -5,7 +5,7 @@ An api that scrapes hianime.to (formerly aniwatch.to or zoro.to).
 ## Contents
 - [Installation](#installation)
 - [API Docs](#api-docs)
-  - [GET Home Page](#get-home)
+  - [GET Home Page](#get-home-page)
 
 ## Installation
 > [!CAUTION]
