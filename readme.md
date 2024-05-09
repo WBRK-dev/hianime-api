@@ -10,7 +10,7 @@ An api that scrapes hianime.to (formerly aniwatch.to or zoro.to).
 >
 > The rust compiler and rust package manager `cargo` must be installed!
 
-The only way to use this anime is to build the binary from source. The first step is downloading the source code.
+The only way to use this api is to build the binary from source. The first step is downloading the source code.
 ```
 git clone https://github.com/WBRK-dev/hianime-api.git
 ```
