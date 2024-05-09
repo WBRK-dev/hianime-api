@@ -18,8 +18,7 @@ async fn main() {
 
     println!("Running on http://{}:{}", ip, port);
 
-    let ip_parts: Vec<u8> = ip.split(".").map(|part| part.parse::<u8>().unwrap()).collect();
-    let ip_parts: [u8; 4] = ip_parts.try_into().unwrap();
+    let ip_parts: [u8; 4] = ip.split(".").map(|part| part.parse::<u8>().unwrap()).collect::<Vec<u8>>().try_into().unwrap();
     warp::serve(routes)
         .run((ip_parts, port))
         .await;
