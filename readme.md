@@ -4,7 +4,7 @@ An api that scrapes hianime.to (formerly aniwatch.to or zoro.to).
 
 > [!IMPORTANT]
 >
-> 1. This project is mostly based on [aniwatch-api](https://github.com/ghoshRitesh12/aniwatch-api). It is in other words an port from typescript to rust.
+> 1. This project is mostly based on [aniwatch-api](https://github.com/ghoshRitesh12/aniwatch-api). It is in other words a port from typescript to rust.
 > 2. This API is just an unofficial api for [hianime.to](https://hianime.to) and is in no other way officially related to the same.
 > 3. The content that this api provides is not mine, nor is it hosted by me. These belong to their respective owners. This api just demonstrates how to build an api that scrapes websites and uses their content.
 
