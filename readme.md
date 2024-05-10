@@ -100,6 +100,50 @@ Response
             },
         }
         { ... }
+    ],
+    top10: [
+        day: [
+            {
+                rank: number,
+                id: string,
+                title: string,
+                jtitle: string,
+                poster: string,
+                episodes: {
+                    sub: number,
+                    dub: number
+                }
+            },
+            { ... }
+        ],
+        week: [
+            {
+                rank: number,
+                id: string,
+                title: string,
+                jtitle: string,
+                poster: string,
+                episodes: {
+                    sub: number,
+                    dub: number
+                }
+            },
+            { ... }
+        ],
+        month: [
+            {
+                rank: number,
+                id: string,
+                title: string,
+                jtitle: string,
+                poster: string,
+                episodes: {
+                    sub: number,
+                    dub: number
+                }
+            },
+            { ... }
+        ]
     ]
 }
 ```
