@@ -6,7 +6,7 @@ pub struct HomePage {
     pub trending: Vec<TrendingItem>,
     pub latest_episodes: Vec<Anime>,
     pub top_upcoming: Vec<Anime>,
-    // pub top10: Top10AnimeWrapper,
+    pub top10: Top10AnimeWrapper,
     // pub top_airing: Vec<TopAiringItem>,
 }
 
@@ -33,9 +33,9 @@ pub struct TrendingItem {
 
 #[derive(serde::Serialize)]
 pub struct Top10AnimeWrapper {
-    today: Vec<Top10AnimeItem>,
-    week: Vec<Top10AnimeItem>,
-    month: Vec<Top10AnimeItem>
+    pub day: Vec<Top10AnimeItem>,
+    pub week: Vec<Top10AnimeItem>,
+    pub month: Vec<Top10AnimeItem>
 }
 
 #[derive(serde::Serialize)]
@@ -43,7 +43,7 @@ pub struct Top10AnimeItem {
     pub rank: u8,
     pub id: String,
     pub title: String,
-    // pub jname: String,
+    pub jtitle: String,
     pub poster: String,
     pub episodes: crate::types::anime::AnimeEpisodes
 }

@@ -1,10 +1,11 @@
 use crate::types::anime::AnimeEpisodes;
+use crate::types::parsers::home_page::Top10AnimeWrapper;
 use crate::types::errors::DefaultError;
 
 use crate::utils::env;
 use crate::config::default_env;
 use crate::types::parsers::home_page::*;
-use crate::utils::anime::scrape_basic_anime;
+use crate::utils::anime::{scrape_basic_anime, scrape_top10_anime};
 
 use scraper::{Html, Selector};
 
@@ -15,6 +16,7 @@ pub async fn get() -> Result<warp::reply::WithStatus<warp::reply::Json>, Default
         trending: Vec::new(),
         latest_episodes: Vec::new(),
         top_upcoming: Vec::new(),
+        top10: Top10AnimeWrapper { day: Vec::new(), week: Vec::new(), month: Vec::new() },
     };
     let home_page_url = env::get("DOMAIN_NAME", Some(default_env::SRC_BASE_URL))?;
 
@@ -121,6 +123,18 @@ pub async fn get() -> Result<warp::reply::WithStatus<warp::reply::Json>, Default
 
     response.latest_episodes = scrape_basic_anime(home_page.select(&Selector::parse("#main-content .block_area_home:nth-of-type(1) .tab-content .film_list-wrap .flw-item").unwrap()));
     response.top_upcoming = scrape_basic_anime(home_page.select(&Selector::parse("#main-content .block_area_home:nth-of-type(3) .tab-content .film_list-wrap .flw-item").unwrap()));
+
+    for top10_period_wrapper in home_page.select(&Selector::parse(r#"#main-sidebar .block_area-realtime [id^="top-viewed-"]"#).unwrap()) {
+        let period = top10_period_wrapper.attr("id").unwrap().split("-").last().expect("Period not found in top10 wrapper").trim();
+
+        if period == "day" {
+            response.top10.day = scrape_top10_anime(top10_period_wrapper, "day");
+        } else if period == "week" {
+            response.top10.week = scrape_top10_anime(top10_period_wrapper, "week");
+        } else if period == "month" {
+            response.top10.month = scrape_top10_anime(top10_period_wrapper, "month");
+        }
+    }
 
     Ok(warp::reply::with_status(warp::reply::json(&response), warp::http::StatusCode::OK))
         
