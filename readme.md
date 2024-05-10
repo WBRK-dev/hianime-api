@@ -12,6 +12,7 @@ An api that scrapes hianime.to (formerly aniwatch.to or zoro.to).
 - [Installation](#installation)
 - [API Docs](#api-docs)
   - [GET Home Page](#get-home-page)
+- [Credits](#credits)
 
 ## Installation
 > [!CAUTION]
@@ -102,3 +103,6 @@ Response
     ]
 }
 ```
+
+## Credits
+Big thanks to [Ritesh Ghosh](https://github.com/ghoshRitesh12) for providing an [api](https://github.com/ghoshRitesh12/aniwatch-api) in typescript that this project is based on!
