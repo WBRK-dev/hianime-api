@@ -1,11 +1,11 @@
-use crate::types::anime::Anime;
+use crate::types::*;
 
 #[derive(serde::Serialize)]
 pub struct HomePage {
     pub spotlight: Vec<SpotlightItem>,
     pub trending: Vec<TrendingItem>,
-    pub latest_episodes: Vec<Anime>,
-    pub top_upcoming: Vec<Anime>,
+    pub latest_episodes: Vec<anime::Anime>,
+    pub top_upcoming: Vec<anime::Anime>,
     pub top10: Top10AnimeWrapper,
     pub top_airing: Vec<TopAiringItem>,
 }
@@ -19,7 +19,7 @@ pub struct SpotlightItem {
     pub description: String,
     pub poster: String,
     pub details: Vec<String>,
-    pub episodes: crate::types::anime::AnimeEpisodes
+    pub episodes: anime::AnimeEpisodes
 }
 
 #[derive(serde::Serialize)]
@@ -45,7 +45,7 @@ pub struct Top10AnimeItem {
     pub title: String,
     pub jtitle: String,
     pub poster: String,
-    pub episodes: crate::types::anime::AnimeEpisodes
+    pub episodes: anime::AnimeEpisodes
 }
 
 #[derive(serde::Serialize)]
