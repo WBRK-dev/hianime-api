@@ -17,6 +17,7 @@ pub async fn get() -> Result<warp::reply::WithStatus<warp::reply::Json>, Default
         latest_episodes: Vec::new(),
         top_upcoming: Vec::new(),
         top10: Top10AnimeWrapper { day: Vec::new(), week: Vec::new(), month: Vec::new() },
+        top_airing: Vec::new()
     };
     let home_page_url = env::get("DOMAIN_NAME", Some(default_env::SRC_BASE_URL))?;
 
@@ -134,6 +135,33 @@ pub async fn get() -> Result<warp::reply::WithStatus<warp::reply::Json>, Default
         } else if period == "month" {
             response.top10.month = scrape_top10_anime(top10_period_wrapper, "month");
         }
+    }
+
+    for top_airing_elem in home_page.select(&Selector::parse("#anime-featured .row div:nth-of-type(1) .anif-block-ul ul li").unwrap()) {
+        let mut top_airing_item = TopAiringItem {
+            id: String::new(),
+            title: String::new(),
+            jtitle: String::new(),
+            poster: String::new(),
+            details: Vec::new()
+        };
+
+        top_airing_item.id = top_airing_elem.select(&Selector::parse(".film-detail .film-name .dynamic-name").unwrap()).next().expect("Failed to find id")
+            .attr("href").expect("Failed to find id").split("").skip(2).collect();
+
+        top_airing_item.title = top_airing_elem.select(&Selector::parse(".film-detail .film-name .dynamic-name").unwrap()).next()
+            .expect("Title not found").text().collect::<String>().trim().to_string();
+
+        top_airing_item.jtitle = top_airing_elem.select(&Selector::parse(".film-detail .film-name .dynamic-name").unwrap()).next()
+            .expect("Japanese title not found").attr("data-jname").expect("Japanese title not found").trim().to_string();
+
+        top_airing_item.poster = top_airing_elem.select(&Selector::parse(".film-poster a .film-poster-img").unwrap()).next()
+            .expect("Poster url not found").attr("data-src").expect("Poster url not found").trim().to_string();
+
+        top_airing_item.details = top_airing_elem.select(&Selector::parse(".fd-infor .fdi-item").unwrap())
+        .map(|detail| detail.text().collect::<String>().trim().to_string()).collect();
+
+        response.top_airing.push(top_airing_item);
     }
 
     Ok(warp::reply::with_status(warp::reply::json(&response), warp::http::StatusCode::OK))

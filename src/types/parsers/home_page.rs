@@ -7,7 +7,7 @@ pub struct HomePage {
     pub latest_episodes: Vec<Anime>,
     pub top_upcoming: Vec<Anime>,
     pub top10: Top10AnimeWrapper,
-    // pub top_airing: Vec<TopAiringItem>,
+    pub top_airing: Vec<TopAiringItem>,
 }
 
 #[derive(serde::Serialize)]
@@ -54,4 +54,5 @@ pub struct TopAiringItem {
     pub title: String,
     pub jtitle: String,
     pub poster: String,
+    pub details: Vec<String>
 }
