@@ -17,7 +17,8 @@ pub async fn get() -> Result<warp::reply::WithStatus<warp::reply::Json>, Default
         latest_episodes: Vec::new(),
         top_upcoming: Vec::new(),
         top10: Top10AnimeWrapper { day: Vec::new(), week: Vec::new(), month: Vec::new() },
-        top_airing: Vec::new()
+        top_airing: Vec::new(),
+        genres: Vec::new()
     };
     let home_page_url = env::get("DOMAIN_NAME", Some(default_env::SRC_BASE_URL))?;
 
@@ -163,6 +164,9 @@ pub async fn get() -> Result<warp::reply::WithStatus<warp::reply::Json>, Default
 
         response.top_airing.push(top_airing_item);
     }
+
+    response.genres = home_page.select(&Selector::parse("#main-sidebar .block_area.block_area_sidebar.block_area-genres .sb-genre-list li").unwrap())
+        .map(|genre| genre.text().collect::<String>().trim().to_string()).collect();
 
     Ok(warp::reply::with_status(warp::reply::json(&response), warp::http::StatusCode::OK))
         

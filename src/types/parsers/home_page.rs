@@ -8,6 +8,7 @@ pub struct HomePage {
     pub top_upcoming: Vec<anime::Anime>,
     pub top10: Top10AnimeWrapper,
     pub top_airing: Vec<TopAiringItem>,
+    pub genres: Vec<String>
 }
 
 #[derive(serde::Serialize)]
