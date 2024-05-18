@@ -1,5 +1,4 @@
-use scraper::{html::Select, ElementRef};
-use scraper::Selector;
+use scraper::{html::Select, ElementRef, Selector};
 
 use crate::types::{anime::{Anime, AnimeDetails, AnimeEpisodes}, parsers::home_page::Top10AnimeItem};
 
@@ -108,4 +107,28 @@ pub fn scrape_top10_anime(top10_wapper: ElementRef, period: &str) -> Vec<Top10An
     }
 
     return top10_animes;
+}
+
+pub fn scrape_anime_rank(mut elem: scraper::element_ref::Select) -> u8 {
+    elem.next().expect("Failed to find anime rank").text().collect::<String>().parse().unwrap()
+}
+
+pub fn scrape_anime_id(mut elem: scraper::element_ref::Select) -> String {
+    elem.next().expect("Failed to find anime id").attr("href").expect("Failed to find anime id").split("").skip(2).collect()
+}
+
+pub fn scrape_anime_title(mut elem: scraper::element_ref::Select) -> String {
+    elem.next().expect("Failed to find anime title").text().collect::<String>().trim().to_string()
+}
+
+pub fn scrape_anime_jtitle(mut elem: scraper::element_ref::Select) -> String {
+    elem.next().expect("Failed to find anime japenese title").attr("data-jname").expect("Failed to find anime japenese title").trim().to_string()
+}
+
+pub fn scrape_anime_description(mut elem: scraper::element_ref::Select) -> String {
+    elem.next().expect("Description not found").text().collect::<String>().trim().to_string()
+}
+
+pub fn scrape_anime_poster(mut elem: scraper::element_ref::Select) -> String {
+    elem.next().expect("Failed to find anime poster url").attr("data-src").expect("Failed to find anime poster url").trim().to_string()
 }
