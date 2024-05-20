@@ -180,5 +180,36 @@ Response
 }
 ```
 
+### `GET` Anime Episode Servers
+```
+http://127.0.0.1/episode-servers?id=one-piece-100?ep=2142
+```
+Response
+```javascript
+{
+    sub: [
+        {
+            name: string,
+            id: number
+        },
+        { ... }
+    ],
+    dub: [
+        {
+            name: string,
+            id: number
+        },
+        { ... }
+    ],
+    raw: [
+        {
+            name: string,
+            id: number
+        },
+        { ... }
+    ]
+}
+```
+
 ## Credits
 Big thanks to [Ritesh Ghosh](https://github.com/ghoshRitesh12) for providing an [api](https://github.com/ghoshRitesh12/aniwatch-api) in typescript that this project is based on!
