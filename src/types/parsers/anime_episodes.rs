@@ -8,7 +8,7 @@ pub struct AnimeEpisode {
     pub title: String,
     pub jtitle: String,
     pub episode_id: String,
-    pub number: u8,
+    pub number: u16,
     pub is_filler: bool
 }
 
@@ -16,6 +16,6 @@ pub struct AnimeEpisode {
 pub struct EpisodeHtml {
     pub status: bool,
     pub html: String,
-    pub totalItems: u8,
+    pub totalItems: u16,
     pub continueWatch: Option<String>
 }
