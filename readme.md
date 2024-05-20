@@ -144,6 +144,37 @@ Response
             },
             { ... }
         ]
+    ],
+    top_airing: [
+        {
+            id: string,
+            title: string,
+            jtitle: string,
+            poster: string,
+            details: string[]
+        },
+        { ... }
+    ],
+    genres: string[]
+}
+```
+
+### `GET` Anime Episodes
+```
+http://127.0.0.1/episodes?id=one-piece-100
+```
+Response
+```javascript
+{
+    episodes: [
+        {
+            title: string,
+            jtitle: string,
+            episode_id: string,
+            number: number,
+            is_filler: boolean
+        },
+        { ... }
     ]
 }
 ```
