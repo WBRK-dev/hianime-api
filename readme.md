@@ -34,7 +34,7 @@ The binary could also be called `hianime-api.exe` if you are on windows.
 ## API Docs
 ### `GET` Home Page
 ```
-http://127.0.0.1/home
+http://127.0.0.1:4000/home
 ```
 Response
 ```javascript
@@ -162,7 +162,7 @@ Response
 
 ### `GET` Anime Episodes
 ```
-http://127.0.0.1/episodes?id=one-piece-100
+http://127.0.0.1:4000/episodes?id=one-piece-100
 ```
 Response
 ```javascript
@@ -182,7 +182,7 @@ Response
 
 ### `GET` Anime Episode Servers
 ```
-http://127.0.0.1/episode-servers?id=one-piece-100?ep=2142
+http://127.0.0.1:4000/episode-servers?id=one-piece-100?ep=2142
 ```
 Response
 ```javascript
